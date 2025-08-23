@@ -70,46 +70,54 @@ void SPI_write(MAX7219* ld, SPI_HandleTypeDef* spi);
  * shutdown function
  * param:
  * 		ld: pointer to struct
- * 		mode: 1 for normal
- * 			  0 for shutdown
+ * 		mode: 0x01 for normal
+ * 			  0x00 for shutdown
  */
 
-void shutdown(MAX7219* ld);
+void shutdown(MAX7219* ld, uint8_t mode);
 
-void set_decode(MAX7219* ld, uint8_t mde);
+/*
+ * decode function
+ * param:
+ * 		ld: pointer to struct
+ * 		mode: 0x00 for no decode
+ * 			  0x01 for code B for 0 only
+ * 			  0x0F for code B for 3-0 only
+ * 			  0xFF for code B for all
+ * 
+ * note: read datasheet if you want to know what code B is
+ */
+
+
+void set_decode(MAX7219* ld, uint8_t mode);
+
+/*
+ * set intensity function
+ * param:
+ * 		ld: pointer to struct
+ * 		intensity: 0x00 - 0x0F
+ */
 
 void set_intensity(MAX7219* ld, uint8_t intensity);
 
-void set_displayTest(MAX7219* ld, uint8_t mde);
+/*
+ * scan-limit function
+ * param:
+ * 		ld: pointer to struct
+ * 		limit: 0x00 - 0x07
+ */
 
 void set_scanLimit(MAX7219* ld, uint8_t lim);
 
+/*
+* display test function
+* param:
+* 		ld: pointer to struct
+* 		mode: 0 for normal
+* 			  1 for all leds on
+*/
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+void set_displayTest(MAX7219* ld, uint8_t mde);
 
 
 #endif /* INC_MAX7219_H_ */
