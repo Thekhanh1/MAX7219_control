@@ -11,6 +11,7 @@
 #include "stm32f4xx_hal.h"
 
 // register address
+
 #define MAX7219_REG_NO_OP           0x00
 #define MAX7219_REG_DIGIT_0         0x01
 #define MAX7219_REG_DIGIT_1         0x02
@@ -26,9 +27,7 @@
 #define MAX7219_REG_SHUTDOWN        0x0C
 #define MAX7219_REG_DISPLAYTEST     0x0F
 
-/*
- *	MAX7219 struct for easy handling
- */
+// MAX7219 struct for easy handling
 
 typedef struct
 {
@@ -42,14 +41,19 @@ typedef struct
 {
 
 	SPI_HandleTypeDef* spiHandle;
+	// chip select line
 	GPIO_t* CS_line;
+	// data array
 	uint8_t spiData[2];
+	// buffer
 	uint8_t status[8];
+	// auto use refresh()
+	uint8_t autoRefresh;
 
 } MAX7219;
 
 /*
- * init function
+ * initialise the MAX7219
  * param:
  * 		ld: pointer to struct
  * 		spi: spi struct from stm32
@@ -59,7 +63,7 @@ typedef struct
 uint32_t MAX7219_init(MAX7219* ld, SPI_HandleTypeDef* spi);
 
 /*
- * helper function
+ * helper function to communicate with MAX7219
  * param:
  * 		ld: pointer to struct
  * 		spi: spi struct from stm32
@@ -69,7 +73,7 @@ uint32_t MAX7219_init(MAX7219* ld, SPI_HandleTypeDef* spi);
 void SPI_write(MAX7219* ld, SPI_HandleTypeDef* spi);
 
 /*
- * shutdown function
+ * shutdown MAX7219
  * param:
  * 		ld: pointer to struct
  * 		mode: 0x01 for normal
@@ -79,7 +83,7 @@ void SPI_write(MAX7219* ld, SPI_HandleTypeDef* spi);
 void shutdown(MAX7219* ld, uint8_t mode);
 
 /*
- * decode function
+ * set the decode mode
  * param:
  * 		ld: pointer to struct
  * 		mode: 0x00 for no decode
@@ -94,7 +98,7 @@ void shutdown(MAX7219* ld, uint8_t mode);
 void set_decode(MAX7219* ld, uint8_t mode);
 
 /*
- * set intensity function
+ * Set the brightness of the display
  * param:
  * 		ld: pointer to struct
  * 		intensity: 0x00 - 0x0F
@@ -103,7 +107,7 @@ void set_decode(MAX7219* ld, uint8_t mode);
 void set_intensity(MAX7219* ld, uint8_t intensity);
 
 /*
- * scan-limit function
+ * Set the number of digits (or rows) to be displayed
  * param:
  * 		ld: pointer to struct
  * 		limit: 0x00 - 0x07
@@ -112,7 +116,7 @@ void set_intensity(MAX7219* ld, uint8_t intensity);
 void set_scanLimit(MAX7219* ld, uint8_t lim);
 
 /*
-* display test function
+* turn all leds on
 * param:
 * 		ld: pointer to struct
 * 		mode: 0 for normal
@@ -122,7 +126,7 @@ void set_scanLimit(MAX7219* ld, uint8_t lim);
 void set_displayTest(MAX7219* ld, uint8_t mode);
 
 /*
-* clear function
+* clear the buffer
 * param:
 * 		ld: pointer to struct
 * 		state: 0 for no
@@ -132,7 +136,7 @@ void set_displayTest(MAX7219* ld, uint8_t mode);
 void clear(MAX7219* ld);
 
 /*
-* set led function
+* set a single led status
 * param:
 * 		ld: pointer to struct
 * 		row: row of the led
@@ -144,7 +148,7 @@ void clear(MAX7219* ld);
 void set_led(MAX7219* ld, uint8_t row, uint8_t col, uint8_t state);
 
 /*
-* set row function
+* set row to be on or off
 * param:
 * 		ld: pointer to struct
 * 		row: row of the led
@@ -155,7 +159,7 @@ void set_led(MAX7219* ld, uint8_t row, uint8_t col, uint8_t state);
 void set_row(MAX7219* ld, uint8_t row, uint8_t state);
 
 /*
-* set column function
+* set column to be on or off
 * param:
 * 		ld: pointer to struct
 * 		col: column of the led
@@ -165,18 +169,13 @@ void set_row(MAX7219* ld, uint8_t row, uint8_t state);
 
 void set_col(MAX7219* ld, uint8_t col, uint8_t state);
 
+/*
+* refresh the status[8] buffer
+* param:
+* 		ld: pointer to struct
+*/
 
-
-
-
-
-
-
-
-
-
-
-
+void refresh(MAX7219* ld);
 
 
 #endif /* INC_MAX7219_H_ */
