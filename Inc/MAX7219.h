@@ -43,8 +43,8 @@ typedef struct
 
 	SPI_HandleTypeDef* spiHandle;
 	GPIO_t* CS_line;
-	uint16_t spiData[8];
-	uint32_t size;
+	uint8_t spiData[2];
+	uint8_t status[8];
 
 } MAX7219;
 
@@ -119,7 +119,7 @@ void set_scanLimit(MAX7219* ld, uint8_t lim);
 * 			  1 for all leds on
 */
 
-void set_displayTest(MAX7219* ld, uint8_t mde);
+void set_displayTest(MAX7219* ld, uint8_t mode);
 
 /*
 * clear function
@@ -129,7 +129,7 @@ void set_displayTest(MAX7219* ld, uint8_t mde);
 * 			   1 for yes
 */
 
-void clear(MAX7219* ld, uint8_t state);
+void clear(MAX7219* ld);
 
 /*
 * set led function
@@ -164,6 +164,19 @@ void set_row(MAX7219* ld, uint8_t row, uint8_t state);
 */
 
 void set_col(MAX7219* ld, uint8_t col, uint8_t state);
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 #endif /* INC_MAX7219_H_ */
