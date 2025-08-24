@@ -32,8 +32,10 @@
 
 typedef struct
 {
+
 	GPIO_TypeDef* prt;
 	uint16_t pin;
+
 } GPIO_t;
 
 typedef struct
@@ -84,7 +86,7 @@ void shutdown(MAX7219* ld, uint8_t mode);
  * 			  0x01 for code B for 0 only
  * 			  0x0F for code B for 3-0 only
  * 			  0xFF for code B for all
- * 
+ *
  * note: read datasheet if you want to know what code B is
  */
 
@@ -118,6 +120,50 @@ void set_scanLimit(MAX7219* ld, uint8_t lim);
 */
 
 void set_displayTest(MAX7219* ld, uint8_t mde);
+
+/*
+* clear function
+* param:
+* 		ld: pointer to struct
+* 		state: 0 for no
+* 			   1 for yes
+*/
+
+void clear(MAX7219* ld, uint8_t state);
+
+/*
+* set led function
+* param:
+* 		ld: pointer to struct
+* 		row: row of the led
+* 		col: column of the led
+* 		state: 0 for off
+* 			   1 for on
+*/
+
+void set_led(MAX7219* ld, uint8_t row, uint8_t col, uint8_t state);
+
+/*
+* set row function
+* param:
+* 		ld: pointer to struct
+* 		row: row of the led
+* 		state: 0 for off
+* 			   1 for on
+*/
+
+void set_row(MAX7219* ld, uint8_t row, uint8_t state);
+
+/*
+* set column function
+* param:
+* 		ld: pointer to struct
+* 		col: column of the led
+* 		state: 0 for off
+* 			   1 for on
+*/
+
+void set_col(MAX7219* ld, uint8_t col, uint8_t state);
 
 
 #endif /* INC_MAX7219_H_ */
