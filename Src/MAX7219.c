@@ -11,7 +11,8 @@ void MAX7219_init(MAX7219* ld)
 {
 	// pull the chip select to idle high
 	HAL_GPIO_WritePin((ld->CS_line)->prt, (ld->CS_line)->pin, 1);
-
+	ld->spiData[0] = 0;
+	ld->spiData[1] = 0;
 	// clear the buffer
 	for (int i = 0; i < 8; i++)
 		ld->status[i] = 0x00;
@@ -82,11 +83,11 @@ void set_led(MAX7219* ld, uint8_t row, uint8_t col, uint8_t state)
 	if (state)
 	{
 		// make the led at the correct row and column be 1
-		ld->status[i] |= mask;
+		ld->status[row] |= mask;
 	} else
 	{
 		// make the led at the correct row and column be 0
-		ld->status[i] &= ~mask;
+		ld->status[row] &= ~mask;
 	}
 
 	if (ld->autoRefresh)
@@ -142,10 +143,10 @@ void SPI_write(MAX7219* ld, uint8_t opcode, uint8_t data)
 	ld->spiData[1] = data;
 
 	// pull CS low
-	HAL_GPIO_WritePin((ld->CS_line)->prt, (ld->CS_line)->pin, 0);
+	HAL_GPIO_WritePin((ld->CS_line)->prt, (ld->CS_line)->pin, GPIO_PIN_RESET);
 	HAL_SPI_Transmit(ld->spiHandle, ld->spiData, 2, 100);
 	// latches data
-	HAL_GPIO_WritePin((ld->CS_line)->prt, (ld->CS_line)->pin, 1);
+	HAL_GPIO_WritePin((ld->CS_line)->prt, (ld->CS_line)->pin, GPIO_PIN_SET);
 
 };
 
@@ -156,3 +157,7 @@ void refresh(MAX7219* ld)
 	for (int i = 0; i < 8; i++)
 		SPI_write(ld, i + 1, ld->status[i]);
 }
+
+
+
+

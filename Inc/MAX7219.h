@@ -60,7 +60,7 @@ typedef struct
  *
  */
 
-uint32_t MAX7219_init(MAX7219* ld, SPI_HandleTypeDef* spi);
+void MAX7219_init(MAX7219* ld);
 
 /*
  * helper function to communicate with MAX7219
@@ -70,7 +70,7 @@ uint32_t MAX7219_init(MAX7219* ld, SPI_HandleTypeDef* spi);
  *
  */
 
-void SPI_write(MAX7219* ld, SPI_HandleTypeDef* spi);
+void SPI_write(MAX7219* ld, uint8_t opcode, uint8_t data);
 
 /*
  * shutdown MAX7219
@@ -176,6 +176,16 @@ void set_col(MAX7219* ld, uint8_t col, uint8_t state);
 */
 
 void refresh(MAX7219* ld);
+
+
+
+
+
+
+
+
+
+
 
 
 #endif /* INC_MAX7219_H_ */
