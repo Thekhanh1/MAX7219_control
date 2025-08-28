@@ -148,23 +148,21 @@ void clear(MAX7219* ld);
 void set_led(MAX7219* ld, uint8_t row, uint8_t col, uint8_t state);
 
 /*
-* set row to be on or off
+* set row to be a pattern
 * param:
 * 		ld: pointer to struct
 * 		row: row of the led
-* 		state: 0 for off
-* 			   1 for on
+* 		state: 8 bit numer
 */
 
 void set_row(MAX7219* ld, uint8_t row, uint8_t state);
 
 /*
-* set column to be on or off
+* set column to be a pattern
 * param:
 * 		ld: pointer to struct
 * 		col: column of the led
-* 		state: 0 for off
-* 			   1 for on
+* 		state: 8 bit number
 */
 
 void set_col(MAX7219* ld, uint8_t col, uint8_t state);
@@ -176,16 +174,6 @@ void set_col(MAX7219* ld, uint8_t col, uint8_t state);
 */
 
 void refresh(MAX7219* ld);
-
-
-
-
-
-
-
-
-
-
 
 
 #endif /* INC_MAX7219_H_ */

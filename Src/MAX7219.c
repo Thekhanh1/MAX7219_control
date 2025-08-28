@@ -99,13 +99,7 @@ void set_row(MAX7219* ld, uint8_t row, uint8_t state)
 {
 	if (row > 7) return;
 
-	if (state)
-	{
-		ld->status[row] = 0xFF;
-	} else
-	{
-		ld->status[row] = 0x00;
-	}
+	ld->status[row] = state;
 
 	if (ld->autoRefresh)
 		SPI_write(ld, row + 1, ld->status[row]);
@@ -120,18 +114,9 @@ void set_col(MAX7219* ld, uint8_t col, uint8_t state)
 
 	for (int i = 0; i < 8; i++)
 	{
-		if (state)
-		{
-			// make the led at the correct row and column be 1
-			ld->status[i] |= mask;
-		} else
-		{
-			// make the led at the correct row and column be 0
-			ld->status[i] &= ~mask;
-		}
-
-		if (ld->autoRefresh)
-			SPI_write(ld, i + 1, ld->status[i]);
+		uint8_t tmp = state >> (7 - i);
+		tmp &= 0x01;
+		set_led(ld, i, col, tmp);
 	}
 };
 
@@ -149,7 +134,6 @@ void SPI_write(MAX7219* ld, uint8_t opcode, uint8_t data)
 	HAL_GPIO_WritePin((ld->CS_line)->prt, (ld->CS_line)->pin, GPIO_PIN_SET);
 
 };
-
 
 void refresh(MAX7219* ld)
 {
