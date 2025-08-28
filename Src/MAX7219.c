@@ -109,8 +109,6 @@ void set_row(MAX7219* ld, uint8_t row, uint8_t state)
 void set_col(MAX7219* ld, uint8_t col, uint8_t state)
 {
 	if (col > 7) return;
-	// bit mask to select the right column
-	uint8_t mask = 0x80 >> col;
 
 	for (int i = 0; i < 8; i++)
 	{
