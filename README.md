@@ -12,10 +12,10 @@ Download the Src file and the Inc file, then drag them into their respective fol
 
 **INSTRUCTION**
 -------
-Assuming the user is using STM32cubeIDE or STM32cubeMX. \
+Assuming the user is using STM32cubeIDE or STM32cubeMX. 
 ### **SETUP** 
-- Go to your .ioc file, pick a pin (eg. PA4), and set it to GPIO_Output. \
-- Now go to connectivity, click on SPI1, use Full-Duplex Master mode, no hardware NSS signal. \
+- Go to your .ioc file, pick a pin (eg. PA4), and set it to GPIO_Output. 
+- Now go to connectivity, click on SPI1, use Full-Duplex Master mode, no hardware NSS signal. 
 - In configuration, leave the default option, make sure the baudrate is < 10MBits/s, if not then change your prescaler. 
 ### **USAGE**
 - in main.c, include "STM32_max7219.h".
