@@ -4,7 +4,7 @@ This is a library to control the MAX7219 and MAX7221 with a LED matrix, using a 
 
 **UPDATES** 
 -------
-Support for casscading and for 7-segments LED will be added at a later date.
+Support for 7-segments LED will be added at a later date.
 
 **INSTALLING** 
 -------
