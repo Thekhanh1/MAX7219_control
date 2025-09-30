@@ -1,6 +1,6 @@
 **MAX7219** 
 ===
-This is a library to control the MAX7219 and MAX7221 with a LED matrix, using a STM32f4. 
+This is a library to control the MAX7219 and MAX7221 with a LED matrix, using STM32. 
 
 **UPDATES** 
 -------
